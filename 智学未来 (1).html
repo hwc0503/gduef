@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>智学未来 · 颠覆传统的编程教育平台</title>
+    <!-- 引用 Google Fonts 提升字体现代感 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (免费图标库) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fffcf5;  /* 暖白基调 */
+            color: #2e2a27;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* 主色调：橙黄色盘 */
+        :root {
+            --primary: #f59e0b;      /* 鲜橙 */
+            --primary-dark: #ea580c;
+            --primary-glow: #fbbf24;
+            --secondary: #fef3c7;
+            --accent-dark: #92400e;
+            --gray-bg: #fff8ed;
+            --card-shadow: 0 20px 35px -12px rgba(234, 88, 12, 0.12);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* 头部导航 */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-dark), #f59e0b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+        .logo span {
+            color: var(--primary-dark);
+            background: none;
+            -webkit-background-clip: unset;
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #4b3b2c;
+            transition: 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-dark);
+        }
+        .btn-outline {
+            border: 1.5px solid var(--primary);
+            background: transparent;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            transition: 0.2s;
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* 按钮通用 */
+        .btn-primary {
+            background: linear-gradient(105deg, var(--primary), var(--primary-dark));
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 12px 32px;
+            border-radius: 40px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 18px rgba(245, 158, 11, 0.3);
+            display: inline-block;
+            text-decoration: none;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px -8px rgba(234, 88, 12, 0.4);
+            background: linear-gradient(105deg, var(--primary-dark), var(--primary));
+        }
+
+        /* Hero 区域 */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            padding: 50px 0 70px;
+        }
+        .hero-left {
+            flex: 1.2;
+        }
+        .hero-badge {
+            background: var(--secondary);
+            color: var(--accent-dark);
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+        .hero-left h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        .hero-left h1 .highlight {
+            color: var(--primary-dark);
+            border-bottom: 4px solid var(--primary-glow);
+            display: inline-block;
+        }
+        .hero-desc {
+            font-size: 1.2rem;
+            color: #5b4b3a;
+            margin: 24px 0 32px;
+            max-width: 550px;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 30px;
+        }
+        .stat-item h3 {
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+        }
+        .hero-right {
+            flex: 1;
+            background: linear-gradient(145deg, #fff1df, #ffe6cf);
+            border-radius: 40px;
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+        }
+        .hero-right img {
+            max-width: 100%;
+            border-radius: 28px;
+        }
+        /* 模拟抽象图示 */
+        .code-illustration {
+            background: #2d2a27;
+            border-radius: 28px;
+            padding: 20px;
+            color: #fbbf24;
+            font-family: monospace;
+            text-align: left;
+        }
+
+        /* 独特概念区域 - 颠覆传统模式 */
+        .unique-section {
+            background: var(--gray-bg);
+            border-radius: 60px;
+            padding: 70px 0;
+            margin: 40px 0;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        .section-header p {
+            font-size: 1.2rem;
+            color: #6a5a48;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+        .concept-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            justify-content: center;
+        }
+        .concept-card {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            padding: 30px 24px;
+            border-radius: 32px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.02), 0 2px 4px rgba(0,0,0,0.02);
+            transition: all 0.3s;
+            text-align: center;
+            border: 1px solid rgba(245,158,11,0.2);
+        }
+        .concept-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 30px -15px rgba(245,158,11,0.2);
+        }
+        .concept-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .concept-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+        }
+
+        /* 课程展示区 */
+        .courses-section {
+            padding: 60px 0;
+        }
+        .courses-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+            justify-content: center;
+        }
+        .course-card {
+            background: white;
+            border-radius: 28px;
+            flex: 1 1 280px;
+            padding: 32px 24px;
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.05);
+            transition: 0.25s;
+            border-bottom: 4px solid transparent;
+            text-align: center;
+        }
+        .course-card:hover {
+            border-bottom-color: var(--primary);
+            transform: scale(1.02);
+        }
+        .course-icon {
+            font-size: 3rem;
+            background: var(--secondary);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 30px;
+            margin: 0 auto 20px;
+            color: var(--primary-dark);
+        }
+        .course-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+        .course-tag {
+            background: #ffedd5;
+            color: #b45309;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            margin: 12px 0;
+        }
+        .learn-more {
+            color: var(--primary-dark);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        /* 学习重要性 + 独特学习风格融合 */
+        .importance-block {
+            background: linear-gradient(115deg, #fff5e6, #fff4e8);
+            border-radius: 48px;
+            padding: 60px 40px;
+            margin: 40px 0;
+        }
+        .importance-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+        }
+        .importance-text {
+            flex: 1.2;
+        }
+        .importance-text h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        .importance-text p {
+            font-size: 1.1rem;
+            margin-bottom: 28px;
+            color: #3f352c;
+        }
+        .style-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+        .style-list li {
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+        .style-list li i {
+            color: var(--primary);
+            font-size: 1.3rem;
+            width: 28px;
+        }
+        .importance-graphic {
+            flex: 0.8;
+            background: #fde7cd;
+            border-radius: 40px;
+            padding: 32px;
+            text-align: center;
+        }
+
+        /* CTA 区域 */
+        .cta-section {
+            text-align: center;
+            background: #2c241e;
+            color: white;
+            border-radius: 60px;
+            padding: 70px 30px;
+            margin: 60px 0 50px;
+            background-image: radial-gradient(circle at 10% 20%, rgba(245,158,11,0.15) 0%, rgba(0,0,0,0.2) 90%);
+        }
+        .cta-section h2 {
+            font-size: 2.3rem;
+            margin-bottom: 15px;
+        }
+        .cta-section .btn-primary {
+            margin-top: 20px;
+            background: white;
+            color: var(--primary-dark);
+            box-shadow: none;
+        }
+        .cta-section .btn-primary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* footer */
+        footer {
+            padding: 40px 0 30px;
+            border-top: 1px solid #ffe2bf;
+            text-align: center;
+            color: #7f6e5a;
+        }
+
+        @media (max-width: 800px) {
+            .container {
+                padding: 0 24px;
+            }
+            .hero-left h1 {
+                font-size: 2.4rem;
+            }
+            .navbar {
+                flex-direction: column;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+            }
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <div class="logo">智学<span>·未来</span> <span style="font-size:0.9rem; background: none; color:#ea580c;">?</span></div>
+            <ul class="nav-links">
+                <li><a href="#" class="active">首页</a></li>
+                <li><a href="#">课程体系</a></li>
+                <li><a href="#">独特理念</a></li>
+                <li><a href="#">AI 智能中心</a></li>
+                <li><a href="#" class="btn-outline">登录/注册</a></li>
+            </ul>
+        </nav>
+
+        <!-- Hero 主视觉 -->
+        <div class="hero">
+            <div class="hero-left">
+                <div class="hero-badge"><i class="fas fa-lightbulb"></i> 颠覆传统 · 新生代引擎</div>
+                <h1>重新定义编程教育 <br> 不止于代码，<span class="highlight">智创未来</span></h1>
+                <p class="hero-desc">打破沉闷的灌输式教学，我们以项目驱动+AI个性赋能，塑造你的核心竞争力。从思维到实战，每一行代码都是成长的阶梯。</p>
+                <a href="#" class="btn-primary"><i class="fas fa-rocket"></i> 开启智慧之旅</a>
+                <div class="hero-stats">
+                    <div class="stat-item"><h3>10K+</h3><p>活跃学员</p></div>
+                    <div class="stat-item"><h3>98%</h3><p>项目完课率</p></div>
+                    <div class="stat-item"><h3>24/7</h3><p>AI助教陪伴</p></div>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="code-illustration">
+                    <pre style="margin:0; font-size: 0.8rem;">
+&lt;learn style="unique"&gt;
+   if(you.passion) {
+       return "Master Java/Python/PHP/AI";
+   }
+   // 非传统路径 · 思维跃迁
+   future.learn(interactive=true);
+&lt;/learn&gt;
+                    </pre>
+                    <p style="margin-top: 12px; color:#fcd34d; font-size:0.8rem;">? 个性化学习引擎 · 实时反馈</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 独特概念 & 与传统模式不同 (创新风格区) -->
+    <div class="unique-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>?? 独创「共振学习」体系 <span style="color: var(--primary-dark);">? 彻底告别传统模式</span></h2>
+                <p>不再照着PPT念经，不以考试为目的。我们构建真实开发场景，融合AI智能伴学，让能力与热情同频共振。</p>
+            </div>
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <div class="concept-icon"><i class="fas fa-brain"></i></div>
+                    <h3>认知革命</h3>
+                    <p>基于脑科学 + 自适应图谱，动态推荐学习路径，告别“一刀切”进度。</p>
+                </div>
+                <div class="concept-card">
+                    <div class="concept-icon"><i class="fas fa-code-branch"></i></div>
+                    <h3>项目原生</h3>
+                    <p>从第一行代码就开始“真项目实战”，像工程师一样解决实际问题。</p>
+                </div>
+                <div class="concept-card">
+                    <div class="concept-icon"><i class="fas fa-robot"></i></div>
+                    <h3>AI 智能导师</h3>
+                    <p>7×24h 代码审查、错误预测和个性化练习生成，学习效率翻倍。</p>
+                </div>
+                <div class="concept-card">
+                    <div class="concept-icon"><i class="fas fa-users"></i></div>
+                    <h3>协作流学习</h3>
+                    <p>组队开发、代码对决、真实工作流模拟，重构学习社交体验。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 学习的重要性 + 独特风格 融合区块 -->
+        <div class="importance-block">
+            <div class="importance-flex">
+                <div class="importance-text">
+                    <h2><i class="fas fa-seedling" style="color: var(--primary);"></i> 学习为何刻不容缓？</h2>
+                    <p>在AI席卷的时代，技术迭代加速，唯有掌握底层逻辑+快速适应能力，才能不被淘汰。但传统学习枯燥低效，导致七成学员半途而废。<strong>我们重塑了学习的全过程：</strong>将“被动听讲”变为“主动创造”，将“理论灌输”变为“实战闯关”，学习不再是负担而是探索的乐趣。</p>
+                    <ul class="style-list">
+                        <li><i class="fas fa-check-circle"></i> 动态难度调节 · 拒绝无效练习</li>
+                        <li><i class="fas fa-chalkboard-user"></i> 实时互动课堂 + 翻转式教学</li>
+                        <li><i class="fas fa-chart-line"></i> 能力雷达图 · 精准提升薄弱环节</li>
+                        <li><i class="fas fa-globe"></i> 开源社区贡献 + 项目作品集导向</li>
+                    </ul>
+                    <a href="#" class="btn-primary" style="margin-top: 20px; display: inline-block;">探索独特学习风格 <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="importance-graphic">
+                    <i class="fas fa-chalkboard" style="font-size: 4rem; color: #ea580c; opacity: 0.7;"></i>
+                    <h3 style="margin: 20px 0 10px; font-weight: 800;">传统 vs 智学未来</h3>
+                    <p style="font-weight: 500;">?? 教材死记硬背 → ?? 沉浸项目实战<br>
+                    ????? 大班统一进度 → ?? AI定制学习流<br>
+                    ?? 期末考定生死 → ?? 动态技能评估</p>
+                    <div style="background:#f7d9b3; border-radius: 60px; padding: 12px; margin-top: 20px;">
+                        <span style="font-weight: bold;">?? 学员转型成功率提高 3.2 倍</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 核心课程 Java Web, Python, PHP, AI智能 -->
+        <div class="courses-section">
+            <div class="section-header">
+                <h2>?? 核心课程矩阵 <span style="color:#f97316;">前沿技术栈</span></h2>
+                <p>紧贴企业级需求，从入门到架构师，我们带你走最短路径掌握未来语言</p>
+            </div>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-icon"><i class="fab fa-java"></i></div>
+                    <h3>Java Web</h3>
+                    <div class="course-tag">企业级开发</div>
+                    <p>Spring Boot / 微服务 / 高并发实战，构建大型电商与金融系统。</p>
+                    <a href="#" class="learn-more">探索课程 <i class="fas fa-chevron-right"></i></a>
+                </div>
+                <div class="course-card">
+                    <div class="course-icon"><i class="fab fa-python"></i></div>
+                    <h3>Python</h3>
+                    <div class="course-tag">全栈+数据分析</div>
+                    <p>从爬虫到Django，自动化脚本+机器学习基础，拥抱高效开发。</p>
+                    <a href="#" class="learn-more">探索课程 <i class="fas fa-chevron-right"></i></a>
+                </div>
+                <div class="course-card">
+                    <div class="course-icon"><i class="fab fa-php"></i></div>
+                    <h3>PHP</h3>
+                    <div class="course-tag">高效后端</div>
+                    <p>Laravel 框架，API 设计与高性能优化，快速构建可靠应用。</p>
+                    <a href="#" class="learn-more">探索课程 <i class="fas fa-chevron-right"></i></a>
+                </div>
+                <div class="course-card">
+                    <div class="course-icon"><i class="fas fa-microchip"></i></div>
+                    <h3>AI 智能</h3>
+                    <div class="course-tag">大模型·AIGC</div>
+                    <p>神经网络、LLM应用开发、OpenAI实战，抢占人工智能浪潮之巅。</p>
+                    <a href="#" class="learn-more">探索课程 <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 额外独特模块：智能学习路径展示 -->
+        <div style="background: #fff3e5; border-radius: 48px; padding: 48px 32px; margin: 30px 0;">
+            <div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: center;">
+                <div style="flex: 1;">
+                    <h2 style="font-size: 2rem; margin-bottom: 12px;"><i class="fas fa-road" style="color: var(--primary-dark);"></i> 量身定制的学习旅程</h2>
+                    <p style="font-size: 1.05rem;">入学即接受 AI 能力评估，生成个性化学习地图。每个关卡都有真实项目挑战，积累可展示的作品集。我们相信「知识≠能力」，唯有创造才能深刻掌握。</p>
+                    <div style="margin-top: 24px; display: flex; gap: 20px; flex-wrap: wrap;">
+                        <div><i class="fas fa-check-circle" style="color: #eab308;"></i> 动态难度曲线</div>
+                        <div><i class="fas fa-check-circle" style="color: #eab308;"></i> 代码实时Review</div>
+                        <div><i class="fas fa-check-circle" style="color: #eab308;"></i> 智能错题强化</div>
+                    </div>
+                </div>
+                <div style="flex: 0.7; background: white; border-radius: 36px; padding: 24px; text-align: center; box-shadow: 0 20px 30px -10px rgba(0,0,0,0.05);">
+                    <i class="fas fa-chart-simple" style="font-size: 3rem; color: var(--primary);"></i>
+                    <div style="height: 8px; background: #ffe1b3; border-radius: 4px; margin: 20px 0; width: 100%;"><div style="width: 68%; height: 8px; background: #f59e0b; border-radius: 4px;"></div></div>
+                    <p><strong>学习进度追踪</strong> — 从新手到熟练，每一步可视化反馈</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 用数据与真实 testimonial 展示 -->
+        <div style="display: flex; flex-wrap: wrap; gap: 28px; justify-content: space-between; margin: 40px 0;">
+            <div style="flex: 1; background: #fff7ef; border-radius: 32px; padding: 28px;">
+                <i class="fas fa-quote-left" style="font-size: 2rem; color: #f59e0b; opacity: 0.6;"></i>
+                <p style="font-size: 1.1rem; margin: 16px 0;">“从传统培训班出来还是不会写项目，但在智学未来独特的工作流中，三周就完成了电商项目，面试官眼前一亮。”</p>
+                <div style="display: flex; align-items: center; gap: 12px; margin-top: 20px;">
+                    <div style="background: #f59e0b; width: 42px; height: 42px; border-radius: 60px;"></div>
+                    <div><strong>林雨桐</strong><br>全栈班学员·入职阿里</div>
+                </div>
+            </div>
+            <div style="flex: 1; background: #fff7ef; border-radius: 32px; padding: 28px;">
+                <i class="fas fa-quote-left" style="font-size: 2rem; color: #f59e0b; opacity: 0.6;"></i>
+                <p style="font-size: 1.1rem; margin: 16px 0;">“AI智能督导真的颠覆认知，实时指出代码坏味道，学习效率提升不止一倍！”</p>
+                <div style="display: flex; align-items: center; gap: 12px; margin-top: 20px;">
+                    <div style="background: #f59e0b; width: 42px; height: 42px; border-radius: 60px;"></div>
+                    <div><strong>张子轩</strong><br>AI方向毕业生·创业CTO</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA 召唤 -->
+    <div class="container">
+        <div class="cta-section">
+            <h2>准备颠覆你的学习方式？</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 10px;">加入数千名开发者，用「独特概念」抢先驶入高薪快车道</p>
+            <a href="#" class="btn-primary" style="background: white; color: #c2410c;">免费体验AI学习路径 <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>? 2025 智学未来教育 | 打破传统 · 智驭未来 | 让每一份热爱都找到方向</p>
+            <p style="margin-top: 12px; font-size: 0.85rem;"><i class="fas fa-map-marker-alt"></i> 北京·上海·深圳 线上全球课堂  |  <i class="fas fa-headset"></i> 全天候AI伴学</p>
+        </div>
+    </footer>
+</body>
+</html>
